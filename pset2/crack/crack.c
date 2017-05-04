@@ -1,5 +1,5 @@
 /*
- * =====================================================================================
+ * ===k==================================================================================
  *
  *       Filename:  crack.c
  *
@@ -25,39 +25,43 @@
 #define _GNU_SOURCE
 #include <crypt.h>
 
-void crack(string userInput, int digits);
+bool crack( string hash, string salt, char* array, int position );
 int main(int argc, string argv[])
 {
-    string hash = argv[1];
-    if(argc == 2){
-        crack( hash, 0 );
-    }else{
-        printf("NOPE\n");
+    if(argc <= 1){
+        printf("Usage: ./crack hash");
         return 1;
     }
-    return 0;
+    char array[4];
+    string hash = argv[1];
+
+    bool result = crack(hash, "50", array , 0);
+
+    if(result){
+        printf("Your computer was hacked!");
+        return 0;
+    }else{
+    }
 }
-void crack(string userInput, int digits ){
-    /* int *chars = 0; */
-    string salt = "50";
-    char secret[5];
-    string secretCrypted;
-    for (size_t i = 0; i < strlen(secret); ++i) {
-        for (char c = 65; c < 122; ++c) {
-           if(isalpha(c) && digits < 5){
-               if(islower(c)){
-                   secret[i] = c;
-                   printf("%s\n",secret );
-                   secretCrypted =crypt(secret, salt)
-               }else if(isupper(c)){
-                   secret[i] = c;
-                   printf("%s\n",secret );
-                   secretCrypted =crypt(secret, salt)
-               }
-           }
+
+bool crack( string hash, string salt, char* array, int position ){
+
+    string result;
+    array[position+1] = '\0';
+
+    for (char c = 65; c < 91 || c < 122; c++) { 
+        c = c == 90 ? 97 : c; 
+
+        array[position]  = c;
+        printf("%s\n", array);
+        result = crypt(array, salt);
+
+        if(c < 121 && position < 3){
+            crack(hash, salt, array, position +1);
+        }
+        if(strcmp(result,hash) == 0 ){
+            return true;
         }
     }
-    if(userInput == secretCrypted){
-        printf("yuju");
-    }
-}
+    return false;
+}    
