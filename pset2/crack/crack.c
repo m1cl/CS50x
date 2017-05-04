@@ -1,5 +1,5 @@
 /*
- * ===k==================================================================================
+ * =======================================================================================
  *
  *       Filename:  crack.c
  *
@@ -59,6 +59,7 @@ bool crack( string hash, string salt, char* array, int position ){
         if(c < 121 && position < 3){
             crack(hash, salt, array, position +1);
         }
+
         if(strcmp(result,hash) == 0 ){
             return true;
         }
