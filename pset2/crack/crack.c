@@ -38,13 +38,13 @@ int main(int argc, string argv[])
     bool result = crack(hash, "50", array , 0);
 
     if(result){
-        printf("%s", array);
         return 0;
     }else{
         return 1;
     }
 }
 
+// TODO: Only prints passwords with 4 characters. Make work for all characters 
 bool crack( string hash, string salt, char* array, int position ){
 
     string result;
@@ -59,8 +59,8 @@ bool crack( string hash, string salt, char* array, int position ){
         if(c < 121 && position < 3){
             crack(hash, salt, array, position +1);
         }
-
         if(strcmp(result,hash) == 0 ){
+            printf("%s", array);
             return true;
         }
     }
