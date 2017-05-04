@@ -38,9 +38,10 @@ int main(int argc, string argv[])
     bool result = crack(hash, "50", array , 0);
 
     if(result){
-        printf("Your computer was hacked!");
+        printf("%s", array);
         return 0;
     }else{
+        return 1;
     }
 }
 
@@ -53,7 +54,6 @@ bool crack( string hash, string salt, char* array, int position ){
         c = c == 90 ? 97 : c; 
 
         array[position]  = c;
-        printf("%s\n", array);
         result = crypt(array, salt);
 
         if(c < 121 && position < 3){
