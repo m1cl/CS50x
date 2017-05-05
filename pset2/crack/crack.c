@@ -38,6 +38,7 @@ int main(int argc, string argv[])
     bool result = crack(hash, "50", array , 0);
 
     if(result){
+        printf("%s\n", array);
         return 0;
     }else{
         return 1;
@@ -60,7 +61,6 @@ bool crack( string hash, string salt, char* array, int position ){
             crack(hash, salt, array, position +1);
         }
         if(strcmp(result,hash) == 0 ){
-            printf("%s", array);
             return true;
         }
     }
