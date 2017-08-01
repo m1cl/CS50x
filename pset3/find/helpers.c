@@ -1,9 +1,20 @@
-/**
- * helpers.c
+/*
+ * =====================================================================================
  *
- * Helper functions for Problem Set 3.
+ *       Filename:  helpers.c
+ *
+ *    Description:  helper functions
+ *
+ *        Version:  1.0
+ *        Created:  25.04.2017 12:23:15
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  Michael Ajala, 
+ *   Organization:  CS50 
+ *
+ * =====================================================================================
  */
-
 #include <cs50.h>
 
 #include "helpers.h"
@@ -13,21 +24,25 @@
  */
 bool search(int value, int values[], int n)
 {
-    int arraySize = sizeof(&values)/sizeof(int);
-    int mid;
-    int start;
-    if (n < 0) {
-        return false;
-    }
-    for (int i = 0; i < arraySize; ++i) {
-        mid = arraySize/2;
-        if( values[mid] < value ){
-            mid = ( mid - 1 ) / 2;
-        } else {
-            start = mid;
+    n = sizeof(&values)/( sizeof(int) );
+    int mid = n / 2;
+    int left = 0;
+    do{
+        if( values[mid] == value ) {
+            return true;
         }
-    }
-    return true;
+        if( values[mid] < value ){
+            left = mid + 1 ;
+            mid = (n - left) * 2  ;
+        } else if( values[mid] > value ) {
+            n = mid - 1;
+            mid = n / 2;
+        } else {
+            return false;
+        }
+    } while( n > 0);
+
+    return false;
 }
 
 /**
@@ -35,6 +50,17 @@ bool search(int value, int values[], int n)
  */
 void sort(int values[], int n)
 {
-    // TODO: implement an O(n^2) sorting algorithm
+    n = sizeof(&values) / ( sizeof(int) );
+    int hiSize;
+    for (int i = 0; i < n; ++i) {
+        hiSize = values[i] > values[i+1] ? values[i] : values[i+1];
+    }
+    int arraySize[hiSize+1];
+    do {
+      for (int i = 0; i < hiSize; ++i) {
+          arraySize[values[i]] += 1;
+        }
+      }
+    } while(n <= 0);
     return;
 }
